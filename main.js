@@ -1,6 +1,7 @@
 const request = require('request');
 const player = require('play-sound')({});
 
+// cex has a hard limit on 600 requests per 10 minutes (1 request per minute)
 const timeout_ms = 1 * 1000;
 const url = 'https://cex.io/api/ticker/ETH/USD';
 const alarmFile = './alarm.mp3';
