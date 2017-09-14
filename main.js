@@ -35,7 +35,6 @@ setInterval(() => {
       } else {
         console.error('Could not complete request');
         console.error(error);
-        process.exit(1);
       }
     });
   } catch (e) {
