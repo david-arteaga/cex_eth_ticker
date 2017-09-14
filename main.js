@@ -8,7 +8,7 @@ const alarmFile = './alarm.mp3';
 
 if (process.argv.length < 3) {
   console.error('needs 1 input param: price');
-  process.exit(1);
+  process.exit(1); 
 }
 
 let minPrice = parseFloat(process.argv[2]);
