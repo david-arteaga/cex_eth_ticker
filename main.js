@@ -20,23 +20,28 @@ try {
 
 let playing = false;
 setInterval(() => {
-  request(url, (error, response, body) => {
-    if (!error) {
-      const res = JSON.parse(body);
-      const last = parseFloat(res.last);
-      console.log(date(parseFloat(res.timestamp)) + ': ' + last);
-      if (last <= minPrice) {
-        if (!playing) {
-          playing = true;
-          player.play(alarmFile);
+  try {
+    request(url, (error, response, body) => {
+      if (!error) {
+        const res = JSON.parse(body);
+        const last = parseFloat(res.last);
+        console.log(date(parseFloat(res.timestamp)) + ': ' + last);
+        if (last <= minPrice) {
+          if (!playing) {
+            playing = true;
+            player.play(alarmFile);
+          }
         }
+      } else {
+        console.error('Could not complete request');
+        console.error(error);
+        process.exit(1);
       }
-    } else {
-      console.error('Could not complete request');
-      console.error(error);
-      process.exit(1);
-    }
-  });
+    });
+  } catch (e) {
+    console.error(e);
+    console.error('Could not execute request');
+  }
 }, timeout_ms);
 
 function date(UNIX_timestamp){
